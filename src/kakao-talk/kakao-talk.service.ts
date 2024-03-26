@@ -18,6 +18,7 @@ export class KakaoTalkService {
         try {
 
             kakaoClient.on('message', async (message) => {
+                console.log(message.content)
                 const clientData: Room = await this.roomModel.findOne({ 'kakaoTalk.RoomId': message.room.id }).exec();
                 if (!clientData) return;
                 const currentDate = dayjs();

@@ -44,7 +44,7 @@ this.port = parseInt(process.env.PORT) || 3004;
 
 ### 모바일 서버 구성
 
-에뮬레이터 및 모바일 실물 휴대폰을 이용하여 안드로이드os환경을 구성한 후 메신저봇R 어플 설치를 히여 환경을 세팅합니다.
+에뮬레이터 및 모바일 실물 휴대폰을 이용하여 안드로이드os환경을 구성한 후 메신저봇R 어플 설치를 하여 환경을 세팅합니다.
 모바일 서버에서는 프로젝트의 remote-kakao 라이브러리를 이용하여 서버와의 통신을 담당하게 됩니다.
 모바일 서버코드는 [remote-kaka client code github](https://github.com/remote-kakao/core-client) 내용을 확인해주세요.
 
@@ -61,19 +61,3 @@ this.port = parseInt(process.env.PORT) || 3004;
 에뮬레이터를 이용한 환경 구성을 권장합니다. [리드로이드](https://github.com/remote-android/redroid-doc)는 안정적이며 다양한 설정이 가능하여 테스트 및 개발 시에 유용하게 활용할 수 있습니다.
 
 이렇게 구성된 다중 SNS 브릿지 봇은 타입스크립트와 NestJS, 몽고디비를 기반으로 안정적이고 확장 가능한 아키텍처를 구축하여 다양한 프로젝트에 유연한 소통 경로를 제공합니다.
-
----
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

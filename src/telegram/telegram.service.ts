@@ -205,35 +205,37 @@ export class TelegramService {
     ) {
         try {
             telegramClient.on('message', async (message: any) => {
-                const clientData: Room = await this.roomModel.findOne({ 'telegram.channelId': message.chat.id }).exec();
+                const clientDataArray: Room[] = await this.roomModel.find({ 'telegram.channelId': message.chat.id }).exec();
 
-                if (!clientData || clientData.kakaoTalk.RoomId === null || clientData.telegram.option.kakaoTalk === true) {
+                if (!clientDataArray.length) {
                     return;
                 }
 
                 const currentDate = dayjs();
-                if (dayjs(clientData.status).isBefore(currentDate)) return;
+                clientDataArray.forEach((clientData) => {
+                    if (dayjs(clientData.status).isBefore(currentDate)) return;
 
-                const nickName = (message.from.first_name ? message.from.first_name + " " : "") +
-                    (message.from.last_name ? message.from.last_name : "");
+                    const nickName = (message.from.first_name ? message.from.first_name + " " : "") +
+                        (message.from.last_name ? message.from.last_name : "");
 
-                if (clientData.telegram.option.link === true) {
-                    if (message.text && message.text.includes("http")) return;
-                }
+                    if (clientData.telegram.option.link === true) {
+                        if (message.text && message.text.includes("http")) return;
+                    }
 
-                if (message.photo || message.document) {
-                    if (clientData.telegram.option.announce === true) {
-                        this.sendImgToKakaTalk(nickName, message, kakaoClient, clientData.kakaoTalk.RoomId, address);
-                    } else return
-                }
-                else if (message.text !== undefined) {
-                    this.sendMessageToKakaTalk(nickName, message.text, kakaoClient, clientData.kakaoTalk.RoomId, address);
-                }
+                    if (message.photo || message.document) {
+                        if (clientData.telegram.option.announce === true) {
+                            this.sendImgToKakaTalk(nickName, message, kakaoClient, clientData.kakaoTalk.RoomId, address);
+                        }
+                    } else if (message.text !== undefined) {
+                        this.sendMessageToKakaTalk(nickName, message.text, kakaoClient, clientData.kakaoTalk.RoomId, address);
+                    }
+                });
             });
         } catch (error) {
             console.log(error);
         }
     }
+
 
 
 
